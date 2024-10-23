@@ -1,6 +1,7 @@
 #ifndef structsH
 #define structsH
 
+#include "defines.h"
 
 typedef struct squareInfo
 {

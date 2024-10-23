@@ -6,7 +6,6 @@
 #include "argParse/flags.h"
 
 
-
 squareInfo* add_square(ushort size, squareInfo* head){
 
 	if (head == NULL){
@@ -106,7 +105,7 @@ squareInfo* find_all_squares_for_square(const ushort *widthsN, const ushort *hei
 		if (xsize > ysum)
 			break;
 
-
+		ysize = 0;
 		for (int y = heightI; y < heightsC; y++){
 			ysize += heightsN[y];
 
@@ -116,7 +115,7 @@ squareInfo* find_all_squares_for_square(const ushort *widthsN, const ushort *hei
 				break;
 			}
 
-			if (xsize > ysize)
+			if (xsize < ysize)
 				break;
 
 
