@@ -1,6 +1,6 @@
 
 all:
-	gcc *.c argParse/*.c -o tables
+	gcc *.c argParse/*.c -o tables -pedantic
 
 .PHONY: clear clean run
 

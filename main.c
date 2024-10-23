@@ -85,11 +85,17 @@ int main(int argc, char* argv[]){
 		head = find_squares(widthsN,heightsN);
 
 
+	int squareSum = 0;
+
 	squareInfo* current = head;
 	while(current != NULL){
 		printf("There are %d squares of size %d\n",current->count, current->size);
+		squareSum += current->count;
 		current = current->next;
 	}
+
+
+	printf("there is a total of %d squares!\n",squareSum);
 
 
 
