@@ -97,6 +97,52 @@ void get_args(int argc, char*argv[]){
 
 				break;
 
+			case 'q':
+
+				argumentFlags += flags_q;
+
+				if (fetch_flag_arg_count(argc,argv,argI+1) != 0){
+					fputs("Error: flag -q takes zero arguments!\n",stdout);
+					print_help(argv[0]);
+					exit(1);
+				}
+
+				break;
+
+			case 'o':
+
+				argumentFlags += flags_o;
+
+				if (fetch_flag_arg_count(argc,argv,argI+1) != 1){
+					fputs("Error: flag -o takes one argument!\n",logOut);
+					print_help(argv[0]);
+					error_exit(1);
+				}
+
+				outputFile = argv[argI+1];
+				break;
+
+
+			case 'd':
+
+				argumentFlags += flags_d;
+
+				if (fetch_flag_arg_count(argc,argv,argI+1) != 1){
+					fputs("Error: flag -d takes one argument!\n",logOut);
+					print_help(argv[0]);
+					error_exit(1);
+				}
+
+
+				if (argv[argI+1][1] != '\n'){
+					fputs("Error: delimiter can only be one character!\n",logOut);
+					print_help(argv[0]);
+					error_exit(1);
+				}
+
+				delimiter = argv[argI+1][0];
+				break;
+
 			case 'h':
 
 				argumentFlags += flags_h;
@@ -203,12 +249,16 @@ int fetch_flag_arg_count(int argc, char*argv[], int firstIndex){
 }
 
 void print_help(char* argv0){
-	fprintf(stdout,"Usage: %s -x colum_widths... -y row_heights... [-nd]\n",argv0);
+	fprintf(stdout,"Usage: %s -x colum_widths... -y row_heights... [-nd] [-a] [-q] [-d delimiter] [-o filename]\n",argv0);
 	fputs("  -x colum_widths...: at least one value for the width of the column(s)\n",stdout);
 	fputs("  -y row_heights...: at least one value for the height of the row(s)\n",stdout);
 	fputs("  -n: speciefies that the generated table should NOT be drawn\n",stdout);
 	fputs("  -h: shows this help screen\n",stdout);
 	fputs("  -a: shows all squares, even combined ones\n",stdout);
+
+	fputs("	-q: quiet, the programm will not print anything except errors\n"stdout);
+	fputs("  -o filename: saves the results in a csv file\n",stdout);
+	fputs("  -d delimiter: sets the delimiter for the CSV output (default is semicolon) (can only be one character)\n",stdout);
 	
 }
 

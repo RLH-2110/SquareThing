@@ -12,3 +12,7 @@ int widthsC = 0;
 /* list of how row heights */
 char** heights = NULL;
 int heightsC = 0; 
+
+
+char delimiter = ';';
+char* outputFile = NULL;

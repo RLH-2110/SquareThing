@@ -16,5 +16,9 @@ extern int widthsC;
 extern char** heights;
 extern int heightsC; 
 
+extern char delimiter = ';';
+extern char* outputFile = NULL;
+
+
 #endif
 

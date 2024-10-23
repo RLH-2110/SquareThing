@@ -29,6 +29,9 @@
 #define flags_x 0x04 /* 0b0000_0000_0000_0100 */
 #define flags_y 0x08 /* 0b0000_0000_0000_1000 */
 #define flags_a 0x10 /* 0b0000_0000_0001_0000 */
+#define flags_q 0x20 /* 0b0000_0000_0010_0000 */
+#define flags_o 0x40 /* 0b0000_0000_0100_0000 */
+#define flags_d 0x80 /* 0b0000_0000_1000_0000 */
 
 typedef uint16_t ushort;
 
