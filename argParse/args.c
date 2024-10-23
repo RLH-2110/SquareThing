@@ -85,6 +85,18 @@ void get_args(int argc, char*argv[]){
 
 				break;
 
+			case 'a':
+
+				argumentFlags += flags_a;
+
+				if (fetch_flag_arg_count(argc,argv,argI+1) != 0){
+					fputs("Error: flag -a takes zero arguments!\n",stdout);
+					print_help(argv[0]);
+					exit(1);
+				}
+
+				break;
+
 			case 'h':
 
 				argumentFlags += flags_h;
@@ -94,6 +106,11 @@ void get_args(int argc, char*argv[]){
 
 
 			case 'x':
+
+				if (argumentFlags & flags_x != 0){
+					puts("please only use the -x flag once!");
+					exit(1);
+				}
 
 				argumentFlags += flags_x;
 
@@ -117,6 +134,11 @@ void get_args(int argc, char*argv[]){
 				break;
 
 			case 'y':
+
+				if (argumentFlags & flags_x != 0){
+					puts("please only use the -y flag once!");
+					exit(1);
+				}
 
 				argumentFlags += flags_y;
 
@@ -186,6 +208,8 @@ void print_help(char* argv0){
 	fputs("  -y row_heights...: at least one value for the height of the row(s)\n",stdout);
 	fputs("  -n: speciefies that the generated table should NOT be drawn\n",stdout);
 	fputs("  -h: shows this help screen\n",stdout);
+	fputs("  -a: shows all squares, even combined ones\n",stdout);
+	
 }
 
 

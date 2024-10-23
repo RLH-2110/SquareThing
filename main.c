@@ -6,6 +6,7 @@
 #include "argParse/flags.h"
 
 bool draw_table = false;
+bool all_squares = false;
 
 void put(const int chr);
 void print_full(int count, ushort *sizeX);
@@ -21,6 +22,7 @@ typedef struct squareInfo
 
 
 squareInfo* find_squares(const ushort *widthsN, const ushort *heightsN);
+squareInfo* find_all_squares(const ushort *widthsN, const ushort *heightsN);
 squareInfo* add_square(ushort size, squareInfo* head);
 void free_square(squareInfo* current);
 
@@ -32,6 +34,8 @@ int main(int argc, char* argv[]){
 	if ((argumentFlags & flags_n) == 0) /* if -n was not set*/
 		draw_table = true;
 
+	if ((argumentFlags & flags_a) != 0) /* if -a was set set*/
+		all_squares = true;
 
 	for (int i = 0; i < widthsC;i++)
 		printf("%s ",widths[i]);
@@ -78,7 +82,13 @@ int main(int argc, char* argv[]){
 	}
 	
 	/* gonna let the OS clean this one up for now*/
-	squareInfo* head = find_squares(widthsN,heightsN);
+	squareInfo* head;
+
+	if (all_squares)
+		head = find_all_squares(widthsN,heightsN);
+	else
+		head = find_squares(widthsN,heightsN);
+
 
 	squareInfo* current = head;
 	while(current != NULL){
@@ -101,6 +111,10 @@ int main(int argc, char* argv[]){
 }
 
 
+squareInfo* find_all_squares(const ushort *widthsN, const ushort *heightsN){
+	puts("todo implement find_all_squares!");
+	return NULL;
+}
 
 
 squareInfo* find_squares(const ushort *widthsN, const ushort *heightsN){
@@ -180,6 +194,12 @@ squareInfo* add_square(ushort size, squareInfo* head){
 	return head;
 }
 
+
+
+
+/*  /------\  */
+/* |PRINTING| */
+/*  \------/  */
 
 void print_full(int count, ushort *sizeX){
 
