@@ -5,26 +5,21 @@
 #include "argParse/args.h"
 #include "argParse/flags.h"
 
+#include "structs.h"
+#include "print.h"
+#include "squares.h"
+
+
 bool draw_table = false;
 bool all_squares = false;
 
-void put(const int chr);
-void print_full(int count, ushort *sizeX);
-void print_empty(int count, ushort *sizeX);
 
 
-typedef struct squareInfo
-{
-	ushort size;
-	ushort count;
-	struct squareInfo *next;
-} squareInfo;
 
 
-squareInfo* find_squares(const ushort *widthsN, const ushort *heightsN);
-squareInfo* find_all_squares(const ushort *widthsN, const ushort *heightsN);
-squareInfo* add_square(ushort size, squareInfo* head);
-void free_square(squareInfo* current);
+
+
+
 
 int main(int argc, char* argv[]){
 
@@ -111,122 +106,13 @@ int main(int argc, char* argv[]){
 }
 
 
-squareInfo* find_all_squares(const ushort *widthsN, const ushort *heightsN){
-	puts("todo implement find_all_squares!");
-	return NULL;
-}
-
-
-squareInfo* find_squares(const ushort *widthsN, const ushort *heightsN){
-
-	squareInfo* head = NULL;
-
-	for (int widthsI = 0; widthsI < widthsC; widthsI++){
-		for (int heightI = 0; heightI < heightsC; heightI++){
-			if (widthsN[widthsI] == heightsN[heightI])
-				head = add_square(widthsN[widthsI],head);
-		}
-	}
-
-	return head;
-
-}
-
-
-void free_square(squareInfo* current){
-	squareInfo* child = NULL;
-
-	while (true){
-		if (current == NULL)
-			return;
-
-		child = current->next;
-		free(current);
-
-		current = child;
-	}
-}
-
-squareInfo* add_square(ushort size, squareInfo* head){
-
-	if (head == NULL){
-		head = malloc(sizeof(squareInfo));
-
-		if (head  == NULL){
-			puts("MEMORY LOW!");
-			exit(-1);
-		}
-
-		head->size = size;
-		head->count = 1;
-		head->next = NULL;
-
-		return head;
-	}
-
-	squareInfo* current = head;
-
-	while(true){
-
-		if (current->size == size){
-			current->count++;
-			break;
-		}
-		
-		if (current->next == NULL){
-			current->next = malloc(sizeof(squareInfo));
-
-			if (current->next  == NULL){
-				puts("MEMORY LOW!");
-				exit(-1);
-			}
-
-			current = current->next;
-			current->size = size;
-			current->count = 1;
-			current->next = NULL;
-			break;
-		}
-		
-		current = current->next;
-	}
-
-	return head;
-}
 
 
 
 
-/*  /------\  */
-/* |PRINTING| */
-/*  \------/  */
-
-void print_full(int count, ushort *sizeX){
-
-	putc('#',stdout);
-
-	for (int xi = 0; xi < count;xi++){
-		for (int xc = sizeX[xi]; xc > 0; xc--){
-			putc('-',stdout);
-		}
-		putc('#',stdout);
-	}
-
-	putc('\n',stdout);
-}
 
 
-void print_empty(int count, ushort *sizeX){
-	
-	putc('|',stdout);
 
-	for (int xi = 0; xi < count;xi++){
-		for (int xc = sizeX[xi]; xc > 0; xc--){
-			putc(' ',stdout);
-		}
-		putc('|',stdout);
-	}
 
-	putc('\n',stdout);
 
-}
+
