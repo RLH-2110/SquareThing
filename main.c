@@ -21,7 +21,7 @@ typedef struct squareInfo
 
 
 squareInfo* find_squares(const ushort *widthsN, const ushort *heightsN);
-void add_square(ushort size, squareInfo* head);
+squareInfo* add_square(ushort size, squareInfo* head);
 void free_square(squareInfo* current);
 
 int main(int argc, char* argv[]){
@@ -88,8 +88,11 @@ int main(int argc, char* argv[]){
 
 
 
+	widthsC = 0;
 	free(widths); widths = NULL;
 	free(widthsN); widthsN = NULL;
+	
+	heightsC = 0;
 	free(heights); heights = NULL;
 	free(heightsN); heightsN = NULL;
 	free_square(head);
@@ -107,9 +110,11 @@ squareInfo* find_squares(const ushort *widthsN, const ushort *heightsN){
 	for (int widthsI = 0; widthsI < widthsC; widthsI++){
 		for (int heightI = 0; heightI < heightsC; heightI++){
 			if (widthsN[widthsI] == heightsN[heightI])
-				add_square(widthsN[widthsI],head);
+				head = add_square(widthsN[widthsI],head);
 		}
 	}
+
+	return head;
 
 }
 
@@ -128,7 +133,7 @@ void free_square(squareInfo* current){
 	}
 }
 
-void add_square(ushort size, squareInfo* head){
+squareInfo* add_square(ushort size, squareInfo* head){
 
 	if (head == NULL){
 		head = malloc(sizeof(squareInfo));
@@ -141,6 +146,8 @@ void add_square(ushort size, squareInfo* head){
 		head->size = size;
 		head->count = 1;
 		head->next = NULL;
+
+		return head;
 	}
 
 	squareInfo* current = head;
@@ -162,7 +169,7 @@ void add_square(ushort size, squareInfo* head){
 
 			current = current->next;
 			current->size = size;
-			current->count = 0;
+			current->count = 1;
 			current->next = NULL;
 			break;
 		}
@@ -170,6 +177,7 @@ void add_square(ushort size, squareInfo* head){
 		current = current->next;
 	}
 
+	return head;
 }
 
 
