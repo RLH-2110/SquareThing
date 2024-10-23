@@ -55,10 +55,20 @@ squareInfo* add_square(ushort size, squareInfo* head){
 }
 
 
-squareInfo* find_all_squares(const ushort *widthsN, const ushort *heightsN){
-	puts("todo implement find_all_squares!");
-	return NULL;
+void free_square(squareInfo* current){
+	squareInfo* child = NULL;
+
+	while (true){
+		if (current == NULL)
+			return;
+
+		child = current->next;
+		free(current);
+
+		current = child;
+	}
 }
+
 
 
 squareInfo* find_squares(const ushort *widthsN, const ushort *heightsN){
@@ -77,17 +87,54 @@ squareInfo* find_squares(const ushort *widthsN, const ushort *heightsN){
 }
 
 
-void free_square(squareInfo* current){
-	squareInfo* child = NULL;
 
-	while (true){
-		if (current == NULL)
-			return;
+/* helper for find_all_squares 
+	this is to avoid 4 times nesting
+*/
+squareInfo* find_all_squares_for_square(const ushort *widthsN, const ushort *heightsN, int widthsI, int heightI, squareInfo* head){
 
-		child = current->next;
-		free(current);
+	int xsize = 0,ysize = 0;
 
-		current = child;
+	int ysum = 0;
+	for (int y = heightI; y < heightsC; y++)
+		ysum += heightsN[y];
+
+
+	for (int x = widthsI; x < widthsC; x++){
+		xsize += widthsN[x];
+
+		if (xsize > ysum)
+			break;
+
+
+		for (int y = heightI; y < heightsC; y++){
+			ysize += heightsN[y];
+
+			
+			if (xsize == ysize){
+				head = add_square(xsize,head);
+				break;
+			}
+
+			if (xsize > ysize)
+				break;
+
+
+		}
 	}
+
+	return head;
+
+}
+
+squareInfo* find_all_squares(const ushort *widthsN, const ushort *heightsN){
+
+	squareInfo* head = NULL;
+
+	for (int widthsI = 0; widthsI < widthsC; widthsI++)
+		for (int heightI = 0; heightI < heightsC; heightI++)
+			head = find_all_squares_for_square(widthsN,heightsN,widthsI,heightI,head);	
+	
+	return head;
 }
 
