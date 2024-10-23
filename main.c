@@ -42,10 +42,10 @@ int main(int argc, char* argv[]){
 	
 
 	/* list of how column withds as numbers*/
-	ushort* widthsN = malloc(widthsC);
+	ushort* widthsN = malloc(widthsC*sizeof(ushort));
 
 	/* list of how row heights as numbers*/
-	ushort* heightsN = malloc(heightsC);
+	ushort* heightsN = malloc(heightsC * sizeof(ushort));
 
 
 
