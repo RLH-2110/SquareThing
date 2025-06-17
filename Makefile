@@ -2,7 +2,10 @@
 all:
 	gcc *.c argParse/*.c -o tables -pedantic
 
-.PHONY: clear clean run
+bitbake_all:
+	${CC} ${CFLAGS} ${LDFLAGS} *.c argParse/*.c -o tables -pedantic
+
+.PHONY: clear clean run bitbake_all
 
 run: all
 	./tables -x 3 5 1 -y 1 7 4 
